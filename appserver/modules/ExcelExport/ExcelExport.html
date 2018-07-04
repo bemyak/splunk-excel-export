@@ -1,0 +1,33 @@
+<%page args="module" expression_filter="h"/>
+<%!
+import splunk.entity
+%>
+<%
+splunk_version = splunk.entity.getEntity('server/info', 'server-info').get('version', '4.2')
+%>
+<div class="excelPopup">
+  <div class="exParamsContainer">
+    <form class="exForm entityEditForm" method="GET">
+        <div class="fieldsetWrapper">
+        <fieldset>
+            <label class="exParam">
+                ${_("File name")} <span class="optionalText">(${_("default: splunk_results.xls")})</span>
+            </label>
+            <div>
+                <input name="filename" class="exFilename" type="text">
+            </div>
+            <label class="exParam">
+                ${_("# of results to export")} <span class="optionalText">(${_("max: 1,000,000")})</span> 
+            </label>
+            <div>
+                <input name="count" class="exMaxcount" value="10000" type="text">
+            </div>
+        </fieldset>
+        </div>
+    </form>
+  </div>
+</div>
+<fieldset>
+  <input type="hidden" id= "splunk_version" name="splunk_version" disabled="disabled" value="${splunk_version}"/>
+  <button id="excel_export" class="splButton-primary"><span>Excel Export</span></button>
+</fieldset>
